@@ -2,13 +2,33 @@
   "name": "@boila/cli",
   "version": "1.0.0",
   "description": "Scaffold any boilerplate from the Boila registry with one command.",
+  "keywords": [
+    "boilerplate",
+    "scaffold",
+    "starter",
+    "cli",
+    "nextjs",
+    "shadcn",
+    "tailwindcss"
+  ],
+  "homepage": "https://boila.dev",
+  "bugs": {
+    "url": "https://github.com/boila-dev/boila/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boila-dev/boila.git",
+    "directory": "packages/cli"
+  },
+  "author": "Elouan Bruzek <elelouan@gmail.com>",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "license": "MIT",
   "type": "module",
   "bin": {
-    "boila": "./dist/index.js"
+    "boila": "dist/index.js"
   },
   "files": [
     "dist",
