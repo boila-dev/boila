@@ -1,0 +1,78 @@
+name: Bug report
+description: Something is broken in the web app, the CLI, or a scaffolded template.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. The more reproducible the steps, the faster we can fix it.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      description: Where did the bug occur?
+      options:
+        - boila.dev (web)
+        - boila CLI
+        - a scaffolded template
+        - the registry / MDX pipeline
+        - other
+    validations:
+      required: true
+  - type: input
+    id: slug
+    attributes:
+      label: Template or plugin slug
+      description: If the bug is in a scaffolded project, which template + plugins did you use?
+      placeholder: "next-shadcn --with better-auth"
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Exact commands or steps. Paste the full CLI invocation if relevant.
+      placeholder: |
+        1. `npx boila next-shadcn --with better-auth my-app`
+        2. `cd my-app && pnpm install`
+        3. ...
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What happened instead? Paste error logs verbatim.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: node-version
+    attributes:
+      label: Node version
+      placeholder: "20.18.0"
+    validations:
+      required: true
+  - type: input
+    id: cli-version
+    attributes:
+      label: boila CLI version
+      description: Run `boila --version`. Skip if the bug isn't in the CLI.
+      placeholder: "0.0.3"
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - WSL
+    validations:
+      required: true

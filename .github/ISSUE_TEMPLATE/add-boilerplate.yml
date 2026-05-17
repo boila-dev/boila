@@ -1,0 +1,77 @@
+name: Propose a boilerplate
+description: Suggest a new starter for the catalog. The PR is the actual gate — this issue is for discussion before you invest time.
+title: "boilerplate: "
+labels: ["proposal", "boilerplate"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for **discussion before opening a PR**, especially if you're unsure whether the entry fits the catalog. Read [the curation guidelines](https://boila.dev/guidelines) first — most rejections happen because the bar wasn't clear up front.
+
+        If you've already built it and the bar is clearly met, skip this and open a PR directly.
+  - type: input
+    id: slug
+    attributes:
+      label: Slug
+      description: kebab-case, used in the URL and the CLI (`npx boila <slug>`)
+      placeholder: "remix-saas"
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Display name
+      placeholder: "Remix SaaS Kit"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: One-line description (max 120 chars)
+      description: Tell someone what they get, not how it'll change their life.
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Source repo URL
+      description: Public GitHub / GitLab / Bitbucket / SourceHut URL
+      placeholder: "https://github.com/your-org/your-repo"
+    validations:
+      required: true
+  - type: input
+    id: stack
+    attributes:
+      label: Stack (comma-separated)
+      placeholder: "remix, typescript, tailwind, drizzle, postgres"
+    validations:
+      required: true
+  - type: input
+    id: useCases
+    attributes:
+      label: Use cases (comma-separated)
+      description: From the closed enum — saas, landing, dashboard, monorepo, api, ecommerce, blog, docs.
+      placeholder: "saas, dashboard"
+    validations:
+      required: true
+  - type: checkboxes
+    id: bar
+    attributes:
+      label: Acceptance bar
+      description: Confirm each item before opening a PR.
+      options:
+        - label: Repo is public and has a commit within the last 6 months
+          required: true
+        - label: Install + run works from a clean clone, no manual surgery
+          required: true
+        - label: License is permissive (MIT, Apache-2.0, ISC, BSD)
+          required: true
+        - label: Intent is distinct from existing catalog entries (different stack alone isn't enough)
+          required: true
+  - type: textarea
+    id: distinctness
+    attributes:
+      label: How is this different from what's already in the catalog?
+      description: This is the question that decides most curation calls.
+    validations:
+      required: true

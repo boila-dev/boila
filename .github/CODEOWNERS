@@ -1,0 +1,27 @@
+# CODEOWNERS — auto-assigns reviewers per path.
+# Syntax: <path-pattern> <@owner-or-team> [@owner ...]
+#
+# Replace @boila-dev/maintainers with the actual GitHub handle(s) of the
+# maintainer(s) once the org has a team set up. For solo maintenance, list
+# your own handle (e.g. @your-username).
+
+# Catch-all: anything not covered below
+*                                          @boila-dev/maintainers
+
+# Registry surface (highest curation bar)
+/apps/web/content/                         @boila-dev/maintainers
+/registry.schema.json                      @boila-dev/maintainers
+/plugin.schema.json                        @boila-dev/maintainers
+/scripts/build-registry.ts                 @boila-dev/maintainers
+
+# Templates — the actual scaffolded code
+/templates/                                @boila-dev/maintainers
+
+# Public contracts (URL patterns + JSON shape are public)
+/apps/web/app/[slug]/                      @boila-dev/maintainers
+/apps/web/app/plugins/                     @boila-dev/maintainers
+/packages/cli/                             @boila-dev/maintainers
+
+# CI / release pipeline
+/.github/workflows/                        @boila-dev/maintainers
+/renovate.json                             @boila-dev/maintainers

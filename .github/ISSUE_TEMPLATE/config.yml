@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or discussion
+    url: https://github.com/boila-dev/boila/discussions
+    about: Use Discussions for questions, ideas, or anything that isn't a bug or a contribution.
+  - name: Security report
+    url: https://github.com/boila-dev/boila/security/advisories/new
+    about: Report a vulnerability privately. Never open a public issue for security.

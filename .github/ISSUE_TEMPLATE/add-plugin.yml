@@ -1,0 +1,86 @@
+name: Propose a plugin
+description: Suggest a new drop-in plugin (auth, payments, email, analytics…) for one or more boilerplates.
+title: "plugin: "
+labels: ["proposal", "plugin"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Plugins are **drop-in folders** — no codemods, no patching. If your idea requires modifying files that the base boilerplate already owns, talk to us before opening a PR.
+  - type: input
+    id: slug
+    attributes:
+      label: Slug
+      placeholder: "lucia-auth"
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Display name
+      placeholder: "Lucia auth"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: One-line description (max 120 chars)
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - auth
+        - payments
+        - email
+        - analytics
+        - db
+        - monitoring
+        - observability
+        - ui
+        - misc
+    validations:
+      required: true
+  - type: input
+    id: compatibleStacks
+    attributes:
+      label: Compatible stacks (comma-separated)
+      description: Which base stacks does this plugin target?
+      placeholder: "next, remix"
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Files dropped in
+      description: List the paths the plugin will add. Flag any potential collisions with existing boilerplate files.
+      placeholder: |
+        - lib/auth.ts
+        - app/sign-in/page.tsx
+        - middleware.ts
+    validations:
+      required: true
+  - type: input
+    id: requires
+    attributes:
+      label: Requires (comma-separated plugin slugs)
+      description: Other plugins that must be present. Empty if none.
+      placeholder: ""
+  - type: input
+    id: env
+    attributes:
+      label: Required env vars (comma-separated)
+      placeholder: "LUCIA_SECRET, DATABASE_URL"
+  - type: checkboxes
+    id: bar
+    attributes:
+      label: Acceptance bar
+      options:
+        - label: Drop-in only — no codemods, no AST patching
+          required: true
+        - label: No file collisions with any boilerplate listed under compatibleStacks
+          required: true
+        - label: License is permissive (MIT, Apache-2.0, ISC, BSD)
+          required: true
