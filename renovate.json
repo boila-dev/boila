@@ -1,0 +1,150 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separateMajorReleases",
+    ":prHourlyLimit4",
+    ":prConcurrentLimit10"
+  ],
+  "timezone": "Europe/Paris",
+  "schedule": ["before 8am on monday"],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "rebaseWhen": "conflicted",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 8am on monday"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": false
+  },
+  "packageRules": [
+    {
+      "description": "Tag every PR by where it lives so reviewers can filter the dashboard at a glance.",
+      "matchFileNames": ["templates/*/package.json"],
+      "addLabels": ["template"]
+    },
+    {
+      "matchFileNames": ["templates/_plugins/*/package.json"],
+      "addLabels": ["plugin"]
+    },
+    {
+      "matchFileNames": [
+        "package.json",
+        "apps/*/package.json",
+        "packages/*/package.json"
+      ],
+      "addLabels": ["workspace"]
+    },
+
+    {
+      "description": "Group every template's deps into one PR per template — keeps smoke-test scope tight.",
+      "matchFileNames": ["templates/*/package.json"],
+      "groupName": "{{packageFileDir}}",
+      "groupSlug": "{{packageFileDir}}"
+    },
+    {
+      "matchFileNames": ["templates/_plugins/*/package.json"],
+      "groupName": "{{packageFileDir}}",
+      "groupSlug": "{{packageFileDir}}"
+    },
+
+    {
+      "description": "Group ecosystems that should always move together so they don't desync across PRs.",
+      "matchPackageNames": [
+        "next",
+        "eslint-config-next",
+        "@next/eslint-plugin-next"
+      ],
+      "groupName": "Next.js",
+      "groupSlug": "nextjs"
+    },
+    {
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom"
+      ],
+      "groupName": "React",
+      "groupSlug": "react"
+    },
+    {
+      "matchPackagePrefixes": ["@radix-ui/"],
+      "matchPackageNames": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+        "lucide-react",
+        "tw-animate-css"
+      ],
+      "groupName": "shadcn / Radix",
+      "groupSlug": "shadcn"
+    },
+    {
+      "matchPackageNames": ["tailwindcss", "@tailwindcss/postcss"],
+      "groupName": "Tailwind CSS",
+      "groupSlug": "tailwindcss"
+    },
+    {
+      "matchPackagePrefixes": ["drizzle-"],
+      "matchPackageNames": [
+        "better-auth",
+        "better-sqlite3",
+        "@types/better-sqlite3"
+      ],
+      "groupName": "better-auth + drizzle",
+      "groupSlug": "better-auth"
+    },
+
+    {
+      "description": "Auto-merge patches across the board once CI is green — these almost never break anything and the noise isn't worth the human attention.",
+      "matchUpdateTypes": ["patch", "pin", "digest"],
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Auto-merge minor bumps for templates only when CI (smoke + registry) is green. Templates have no lockfiles, so the smoke build pulls fresh installs each week and validates the new range.",
+      "matchFileNames": ["templates/**/package.json"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Workspace minors stay human-reviewed — they ship in our own products.",
+      "matchFileNames": [
+        "package.json",
+        "apps/*/package.json",
+        "packages/*/package.json"
+      ],
+      "matchUpdateTypes": ["minor"],
+      "automerge": false
+    },
+    {
+      "description": "Majors always go through a human, anywhere. Tag them so we don't lose track on the dashboard.",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "addLabels": ["major-bump"]
+    },
+
+    {
+      "description": "Pin TypeScript to a known-good range — TS minors occasionally break our generic-heavy code.",
+      "matchPackageNames": ["typescript"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": false
+    },
+    {
+      "description": "Don't pin engines (node, npm) — they're declared as a floor, not a target.",
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    },
+    {
+      "description": "Renovate often suggests bumping @types/node ahead of the actual Node minimum we support. Stay on the v20 LTS major.",
+      "matchPackageNames": ["@types/node"],
+      "allowedVersions": "^20"
+    }
+  ]
+}
