@@ -7,13 +7,22 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "turbo format",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "registry:build": "tsx scripts/build-registry.ts",
+    "registry:validate": "tsx scripts/build-registry.ts --check",
+    "check:links": "tsx scripts/check-links.ts",
+    "smoke": "tsx scripts/smoke-templates.ts",
+    "smoke:build": "tsx scripts/smoke-templates.ts --mode build"
   },
   "devDependencies": {
     "@workspace/eslint-config": "*",
     "@workspace/typescript-config": "*",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "gray-matter": "^4.0.3",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "tsx": "^4.22.1",
     "turbo": "^2.8.17",
     "typescript": "5.9.3"
   },
