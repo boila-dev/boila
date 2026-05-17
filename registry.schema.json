@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boila.dev/registry.schema.json",
+  "title": "Boila boilerplate entry",
+  "description": "Frontmatter shape for a single boilerplate entry. Each .mdx file under apps/web/content/boilerplates/ must validate against this schema. The compiled registry.json is the public contract consumed by the npx boila CLI.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "slug",
+    "name",
+    "description",
+    "repo",
+    "stack",
+    "useCases",
+    "authors",
+    "maintained",
+    "license",
+    "addedAt"
+  ],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "URL slug. Must match the filename (sans .mdx) and the URL path /<slug>.",
+      "minLength": 2,
+      "maxLength": 60
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "description": "Human display name (e.g. 'T3 SaaS Starter')."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 120,
+      "description": "One-line pitch. Used on listing cards and the detail page lead."
+    },
+    "repo": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://",
+      "description": "Public Git repository URL. Must be reachable for giget to clone."
+    },
+    "branch": {
+      "type": "string",
+      "minLength": 1,
+      "default": "main",
+      "description": "Optional branch to clone. Defaults to main."
+    },
+    "subdir": {
+      "type": "string",
+      "default": "",
+      "description": "Optional subdirectory inside the repo (for monorepo starters)."
+    },
+    "stack": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Stack technology slugs (next, typescript, tailwind, prisma, ...)."
+    },
+    "useCases": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "saas",
+          "landing",
+          "dashboard",
+          "monorepo",
+          "api",
+          "ecommerce",
+          "blog",
+          "docs"
+        ]
+      },
+      "description": "Closed enum of supported use cases. Drives the catalog taxonomy."
+    },
+    "features": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Free-form feature tags (auth, payments, emails, ...) shown on the detail page."
+    },
+    "bundledPlugins": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Plugin slugs already wired into the base. Informational: shown on the detail page so users know what they get out of the box."
+    },
+    "compatiblePlugins": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Plugin slugs the CLI offers to add at scaffold time. Each slug must exist in plugins/."
+    },
+    "authors": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9-]{1,39}$"
+      },
+      "description": "GitHub handles of the maintainers."
+    },
+    "maintained": {
+      "type": "boolean",
+      "description": "true if the upstream repo is actively maintained (commit within ~6 months)."
+    },
+    "license": {
+      "type": "string",
+      "enum": ["MIT", "Apache-2.0", "ISC", "BSD-2-Clause", "BSD-3-Clause"],
+      "description": "SPDX license identifier. Only permissive licenses are accepted."
+    },
+    "demo": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://",
+      "description": "Optional live demo URL."
+    },
+    "preview": {
+      "type": "string",
+      "pattern": "^/",
+      "description": "Optional preview image path under /public, ideally 1200x630."
+    },
+    "addedAt": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO date (YYYY-MM-DD) the entry was added to the registry."
+    },
+    "installCommand": {
+      "type": "string",
+      "default": "pnpm install",
+      "description": "Post-scaffold install command surfaced by the CLI."
+    },
+    "envSetup": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]*$"
+      },
+      "description": "Required env var names. Shown on the detail page and in CLI post-scaffold output."
+    }
+  }
+}

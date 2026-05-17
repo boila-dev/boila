@@ -1,0 +1,56 @@
+---
+slug: better-auth
+name: Better Auth (email + password)
+description: Drop-in email + password authentication with Better Auth, Drizzle, and SQLite.
+category: auth
+compatibleStacks: [next]
+env: [BETTER_AUTH_SECRET, BETTER_AUTH_URL, NEXT_PUBLIC_APP_URL, DATABASE_FILE]
+source:
+  repo: https://github.com/boila-dev/boila
+  branch: main
+  subdir: templates/_plugins/better-auth
+postInstall: pnpm add better-auth better-sqlite3 drizzle-orm dotenv && pnpm add -D drizzle-kit @types/better-sqlite3 && pnpm drizzle-kit push
+authors: [boila-dev]
+maintained: true
+license: MIT
+docs: https://better-auth.com/docs
+addedAt: 2026-05-17
+---
+
+## What it adds
+
+A working email + password auth flow on top of a Next + shadcn base. Server config, client SDK, sign-in/sign-up pages styled with shadcn primitives, a protected `/dashboard` demo, and middleware that does an edge-safe cookie check before deferring to a full DB read in the server component.
+
+### Files dropped in
+
+```
+app/
+  api/auth/[...all]/route.ts   # Better Auth Next.js handler
+  sign-in/page.tsx
+  sign-up/page.tsx
+  dashboard/page.tsx           # protected demo page
+components/
+  sign-out-button.tsx
+lib/
+  auth.ts                      # server config (Drizzle SQLite adapter)
+  auth-client.ts               # React client
+  require-user.ts              # server helper for protected routes
+  db/index.ts                  # better-sqlite3 + Drizzle
+  db/schema.ts                 # user / session / account / verification
+middleware.ts                  # protects /dashboard via cookie check
+drizzle.config.ts
+```
+
+### What you do after scaffold
+
+1. The CLI runs the `postInstall` for you — it installs deps and pushes the schema to `sqlite.db`.
+2. Generate a secret: `openssl rand -base64 32` and copy it into `.env.local` as `BETTER_AUTH_SECRET`.
+3. `pnpm dev`, hit `/sign-up` to create the first user.
+
+### Switching DB
+
+Drop-in Postgres later: swap `better-sqlite3` for `pg`, change the `provider` in `lib/auth.ts` from `"sqlite"` to `"pg"`, update `drizzle.config.ts`, push again. The schema fields are identical.
+
+### Adding social providers
+
+The base config exposes `socialProviders` — add GitHub or Google by setting client id/secret and calling `signIn.social({ provider: "github" })` from the client.

@@ -1,0 +1,44 @@
+---
+slug: next-shadcn
+name: Next + shadcn
+description: Next 15 App Router, Tailwind CSS v4, shadcn/ui, dark mode, Geist fonts. Nothing else.
+repo: https://github.com/boila-dev/boila
+branch: main
+subdir: templates/next-shadcn
+stack: [next, typescript, tailwind, shadcn]
+useCases: [saas, landing, dashboard]
+features: [dark-mode, sonner, fonts-geist]
+compatiblePlugins: [better-auth]
+authors: [boila-dev]
+maintained: true
+license: MIT
+addedAt: 2026-05-17
+installCommand: pnpm install
+---
+
+## Why this boilerplate
+
+The smallest credible starting point for a Next.js app with the modern stack everyone is converging on. Tailwind v4 with `@theme` tokens, shadcn/ui in `new-york` style, dark mode wired through `next-themes`, Geist for fonts. No CMS, no auth, no DB — pick those up via plugins or roll your own.
+
+### What's inside
+
+- **Next.js 15** App Router, React 19, TypeScript strict
+- **Tailwind CSS v4** with CSS variables in OKLCH, light + dark themes, no `tailwind.config.js`
+- **shadcn/ui** primitives ready: `button`, `input`, `label`, `dialog`, `sonner`, plus a `ThemeToggle`
+- **next-themes** with `system` default and proper hydration handling
+- **Geist** sans + mono via `next/font/google`
+- ESLint flat config extending `next/core-web-vitals` + `next/typescript`
+
+### What it deliberately skips
+
+- No auth — add it with the `better-auth` plugin (`--with better-auth`).
+- No CMS, no MDX pipeline. If you want a content layer, you'll pick what fits.
+- No database. Plugins bring their own (e.g. `better-auth` ships with SQLite).
+
+### Adding components
+
+```bash
+pnpm dlx shadcn@latest add card form sheet
+```
+
+The starter already has `components.json` configured for the `new-york` style with neutral base color and the alias `@/components/ui`.
