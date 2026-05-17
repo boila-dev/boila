@@ -19,10 +19,10 @@
  * intro/outro, and consistent prompts. The non-interactive commands
  * (search, plugins, --help) print plain text so they stay pipe-friendly.
  */
-import { resolve } from "node:path"
-import { existsSync } from "node:fs"
+import { resolve, dirname, join } from "node:path"
+import { existsSync, readFileSync } from "node:fs"
 import { readFile, writeFile } from "node:fs/promises"
-import { join } from "node:path"
+import { fileURLToPath } from "node:url"
 
 import {
   cancel,
@@ -34,7 +34,7 @@ import {
 } from "@clack/prompts"
 import color from "picocolors"
 
-import { loadRegistry } from "./registry.js"
+import { loadRegistry, SITE_URL } from "./registry.js"
 import { CANCEL, pickBoilerplate, pickPlugins } from "./picker.js"
 import { scaffold, scaffoldPlugin } from "./scaffold.js"
 import {
@@ -44,7 +44,14 @@ import {
 } from "./plugins.js"
 import type { Boilerplate, Plugin, Registry } from "./types.js"
 
-const VERSION = "0.0.3"
+// Read version from the package's own package.json so release-please
+// bumps (and any future manual edits) ship to the CLI banner / --version
+// without a second source of truth. dist/index.js → ../package.json.
+const PKG_DIR = dirname(fileURLToPath(import.meta.url))
+const PKG = JSON.parse(
+  readFileSync(join(PKG_DIR, "..", "package.json"), "utf8")
+) as { version: string }
+const VERSION = PKG.version
 const BANNER = color.bgCyan(color.black(" boila "))
 
 async function main() {
@@ -90,7 +97,7 @@ function printHelp() {
     `  ${color.cyan("BOILA_REGISTRY")}                  override the registry URL or file path`,
     `  ${color.cyan("BOILA_TEMPLATES_DIR")}             dev override: copy from a local folder instead of giget`,
     "",
-    `Catalog: ${color.underline("https://boila.dev")}`,
+    `Catalog: ${color.underline(SITE_URL)}`,
   ]
   process.stdout.write(lines.join("\n") + "\n")
 }
@@ -249,7 +256,7 @@ async function commandScaffold(rawArgv: string[]) {
 
   printRecap(entry, pluginsToApply, dir)
 
-  outro(`Done. Detail: ${color.underline(`https://boila.dev/${entry.slug}`)}`)
+  outro(`Done. Detail: ${color.underline(`${SITE_URL}/${entry.slug}`)}`)
 }
 
 type ScaffoldFlags = {
@@ -431,7 +438,7 @@ function printRecap(b: Boilerplate, plugins: Plugin[], dir: string) {
     const lines = plugins.map(
       (p) =>
         `${color.cyan(p.slug.padEnd(14))} ${color.dim(
-          `https://boila.dev/plugins/${p.slug}`
+          `${SITE_URL}/plugins/${p.slug}`
         )}`
     )
     note(lines.join("\n"), "Plugins applied")
