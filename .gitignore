@@ -27,6 +27,10 @@ out/
 build
 dist
 
+# Pagefind index — generated at build time, copied into apps/web/public/
+# so `next dev` can serve it from /pagefind/ for the search palette.
+apps/web/public/pagefind/
+
 
 # Debug
 npm-debug.log*
@@ -34,3 +38,6 @@ npm-debug.log*
 # Misc
 .DS_Store
 *.pem
+
+# Visual brainstorming
+.superpowers/
