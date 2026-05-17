@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/boila-dev/boila/compare/v1.0.0...v1.0.1) (2026-05-17)
+
+
+### Bug Fixes
+
+* **cli:** add repository + npm metadata required by provenance ([bd635a8](https://github.com/boila-dev/boila/commit/bd635a88c6073327a1526a33580ab0e52d4ed027))
+
 ## 1.0.0 (2026-05-17)
 
 
