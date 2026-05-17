@@ -1,0 +1,59 @@
+# Validates every PR that touches the registry.
+#
+# - registry:validate is REQUIRED — invalid frontmatter blocks the merge.
+# - typecheck is REQUIRED — the web app and the CLI must compile.
+# - check:links is INFORMATIONAL for now (continue-on-error) — the seed
+#   registry contains example.com placeholders that 404 by design; flip
+#   to required once the catalog is filled with real repos.
+name: Registry
+
+on:
+  pull_request:
+    paths:
+      - "apps/web/content/boilerplates/**"
+      - "registry.schema.json"
+      - "scripts/**"
+      - "packages/cli/**"
+      - "package.json"
+      - ".github/workflows/registry.yml"
+  push:
+    branches: [main]
+
+concurrency:
+  group: registry-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate registry
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci --ignore-scripts
+      - name: Validate MDX frontmatter
+        run: npm run registry:validate
+      - name: Typecheck workspaces
+        run: npm run typecheck
+
+  links:
+    name: Check upstream links
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: validate
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci --ignore-scripts
+      - name: Generate registry.json
+        run: npm run registry:build
+      - name: HEAD every repo / demo URL
+        run: npm run check:links
