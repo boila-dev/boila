@@ -12,7 +12,7 @@ const PILLARS = [
   {
     label: "02",
     title: "One command, any stack",
-    body: "`npx boila <slug>` resolves through a single registry. No more memorising create-this, create-that, or hunting for repo URLs.",
+    body: "`npx @boila/cli <slug>` resolves through a single registry. No more memorising create-this, create-that, or hunting for repo URLs.",
   },
   {
     label: "03",

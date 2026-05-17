@@ -32,7 +32,7 @@ body:
       label: Reproduction
       description: Exact commands or steps. Paste the full CLI invocation if relevant.
       placeholder: |
-        1. `npx boila next-shadcn --with better-auth my-app`
+        1. `npx @boila/cli next-shadcn --with better-auth my-app`
         2. `cd my-app && pnpm install`
         3. ...
       render: shell

@@ -24,7 +24,7 @@ const PROJECT_MILESTONES: ChangelogEntry[] = [
     date: "2026-05-17",
     type: "shipped",
     title: "v1 ships",
-    body: "Public catalog, search palette via Pagefind, MDX pipeline with schema validation, and the `npx boila` CLI.",
+    body: "Public catalog, search palette via Pagefind, MDX pipeline with schema validation, and the `npx @boila/cli` CLI.",
   },
   {
     date: "2026-04-02",

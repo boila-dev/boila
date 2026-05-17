@@ -19,7 +19,7 @@ export function InstallCommand({
   className,
   tone = "light",
 }: Props) {
-  const cmd = command ?? `npx boila ${slug ?? "<slug>"}`
+  const cmd = command ?? `npx @boila/cli ${slug ?? "<slug>"}`
   const [copied, setCopied] = React.useState(false)
 
   const onCopy = React.useCallback(async () => {

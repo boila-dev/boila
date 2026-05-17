@@ -47,7 +47,7 @@ jobs:
       - name: Install root deps
         run: npm ci --ignore-scripts
       - name: Build CLI
-        run: npm --workspace boila run build
+        run: npm --workspace @boila/cli run build
       - name: Build registry.json
         run: npm run registry:build
       - name: Smoke test (${{ github.event_name == 'pull_request' && 'typecheck' || (github.event.inputs.mode || 'build') }})

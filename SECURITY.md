@@ -20,7 +20,7 @@ We aim to acknowledge within **72 hours** and ship a fix or mitigation within **
 In scope:
 
 - `apps/web` — the boila.dev site.
-- `packages/cli` — the `boila` npm package.
+- `packages/cli` — the `@boila/cli` npm package.
 - `scripts/` — the registry build and link-check tooling.
 - `templates/` — code we ship as scaffold sources, when the vulnerability is in code we wrote (not in upstream deps).
 
@@ -34,8 +34,8 @@ Out of scope:
 
 | Component | Supported |
 | --------- | --------- |
-| `boila` CLI — latest minor | ✅ |
-| `boila` CLI — older versions | best effort |
+| `@boila/cli` CLI — latest minor | ✅ |
+| `@boila/cli` CLI — older versions | best effort |
 | `apps/web` — production deploy | ✅ |
 | Templates — latest in `main` | ✅ |
 | Templates — older scaffolded copies | ❌ (you own your scaffold once cloned) |

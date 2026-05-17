@@ -24,8 +24,8 @@ npm run dev               # runs the web app, regenerates registry.json first
 For the CLI:
 
 ```bash
-npm --workspace boila run build
-npm --workspace boila run dev next-shadcn      # tests against local templates/
+npm --workspace @boila/cli run build
+npm --workspace @boila/cli run dev next-shadcn      # tests against local templates/
 ```
 
 The dev script wires `BOILA_REGISTRY` + `BOILA_TEMPLATES_DIR` so the CLI hits in-repo templates without any network call.

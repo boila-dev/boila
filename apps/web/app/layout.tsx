@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: "%s · Boila",
   },
   description:
-    "A community-curated registry of frontend and full-stack boilerplates. Scaffold any starter with one command: npx boila <slug>.",
+    "A community-curated registry of frontend and full-stack boilerplates. Scaffold any starter with one command: npx @boila/cli <slug>.",
   applicationName: "Boila",
   keywords: [
     "boilerplate",

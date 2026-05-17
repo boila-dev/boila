@@ -102,7 +102,7 @@ export default async function OpengraphImage() {
             color: "rgba(255,255,255,0.75)",
           }}
         >
-          <span style={{ fontFamily: "monospace" }}>npx boila &lt;slug&gt;</span>
+          <span style={{ fontFamily: "monospace" }}>npx @boila/cli &lt;slug&gt;</span>
           <span>boila.dev</span>
         </div>
       </div>

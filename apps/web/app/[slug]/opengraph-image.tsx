@@ -174,7 +174,7 @@ export default async function OgImage({
               color: "#616161",
             }}
           >
-            npx boila {b.slug}
+            npx @boila/cli {b.slug}
           </span>
         </div>
       </div>

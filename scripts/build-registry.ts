@@ -4,7 +4,7 @@
  * Reads every .mdx file under apps/web/content/{boilerplates,plugins}/,
  * validates the frontmatter against the matching JSON schema, and writes the
  * merged result to apps/web/public/registry.json — the public contract
- * consumed by both the web app (at build time) and the `npx boila` CLI
+ * consumed by both the web app (at build time) and the `npx @boila/cli` CLI
  * (at runtime).
  *
  * Modes:
