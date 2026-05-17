@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/boila-dev/boila/compare/v1.0.1...v1.1.0) (2026-05-17)
+
+
+### Features
+
+* **cli:** point default registry at Vercel + derive version from package.json ([d0f9a11](https://github.com/boila-dev/boila/commit/d0f9a11096f90af706008b34bd6bd71b972317d2))
+
 ## [1.0.1](https://github.com/boila-dev/boila/compare/v1.0.0...v1.0.1) (2026-05-17)
 
 
