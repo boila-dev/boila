@@ -4,8 +4,8 @@ import { Geist_Mono, Inter, Space_Grotesk } from "next/font/google"
 import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@workspace/ui/lib/utils"
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://boila.dev"
+import { SITE_URL } from "@/lib/site-url"
+import { Analytics } from "@vercel/analytics/next"
 
 // Body / UI text — stand-in for `Unica77 Cohere Web` (proprietary).
 const fontSans = Inter({
@@ -83,14 +83,15 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cn(
-        "antialiased font-sans",
+        "font-sans antialiased",
         fontSans.variable,
         fontDisplay.variable,
-        fontMono.variable,
+        fontMono.variable
       )}
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )

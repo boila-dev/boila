@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://boila.dev"
+import { SITE_URL } from "@/lib/site-url"
 
 // Required when `output: "export"` — Next won't otherwise emit a static file.
 export const dynamic = "force-static"
