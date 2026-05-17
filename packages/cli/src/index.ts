@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * `boila` CLI entry point. Dispatches to one of:
+ * `@boila/cli` CLI entry point. Dispatches to one of:
  *
  *   boila                          → interactive picker, then scaffold
  *   boila <slug>                   → scaffold known slug into ./<slug>

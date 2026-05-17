@@ -13,7 +13,7 @@ body:
     id: slug
     attributes:
       label: Slug
-      description: kebab-case, used in the URL and the CLI (`npx boila <slug>`)
+      description: kebab-case, used in the URL and the CLI (`npx @boila/cli <slug>`)
       placeholder: "remix-saas"
     validations:
       required: true

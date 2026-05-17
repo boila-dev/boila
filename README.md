@@ -2,7 +2,7 @@
 
 [![Smoke](https://github.com/boila-dev/boila/actions/workflows/smoke.yml/badge.svg)](https://github.com/boila-dev/boila/actions/workflows/smoke.yml)
 [![Registry](https://github.com/boila-dev/boila/actions/workflows/registry.yml/badge.svg)](https://github.com/boila-dev/boila/actions/workflows/registry.yml)
-[![npm version](https://img.shields.io/npm/v/boila.svg)](https://www.npmjs.com/package/boila)
+[![npm version](https://img.shields.io/npm/v/@boila/cli.svg)](https://www.npmjs.com/package/@boila/cli)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Pick a base. Toggle add-ons. Ship.
@@ -10,10 +10,10 @@ Pick a base. Toggle add-ons. Ship.
 Boila is a curated registry of frontend / full-stack boilerplates **and composable plugins**. Browse the catalog at [boila.dev](https://boila.dev), then scaffold any combo with one command:
 
 ```bash
-npx boila                              # interactive: pick a base, check the plugins
-npx boila next-shadcn                  # known base, still prompts for plugins
-npx boila next-shadcn --with better-auth my-app
-npx boila next-shadcn --bare           # base only
+npx @boila/cli                              # interactive: pick a base, check the plugins
+npx @boila/cli next-shadcn                  # known base, still prompts for plugins
+npx @boila/cli next-shadcn --with better-auth my-app
+npx @boila/cli next-shadcn --bare           # base only
 ```
 
 Two surfaces (web + CLI), one source of truth (MDX files in this repo).
@@ -37,7 +37,7 @@ Two surfaces (web + CLI), one source of truth (MDX files in this repo).
 │           ├── boilerplates/         # MDX entries — boilerplate metadata
 │           └── plugins/              # MDX entries — plugin metadata
 ├── packages/
-│   ├── cli/                          # `boila` npm package
+│   ├── cli/                          # `@boila/cli` npm package
 │   └── ui/                           # shared shadcn/ui workspace package
 ├── templates/                        # actual source for boilerplates + plugins
 │   ├── <boilerplate-slug>/           # one folder per base
@@ -111,14 +111,14 @@ Plugins declare `compatibleStacks`, `requires`, `conflicts`, `env`, and a `sourc
 
 ## CLI package
 
-The CLI lives at [`packages/cli/`](./packages/cli/) and is published as [`boila`](https://www.npmjs.com/package/boila). It depends on `giget`, `@clack/prompts`, and `picocolors` only, stays under 1 MB installed, and resolves everything through `https://boila.dev/registry.json` — no hardcoded repo URLs.
+The CLI lives at [`packages/cli/`](./packages/cli/) and is published as [`@boila/cli`](https://www.npmjs.com/package/boila). It depends on `giget`, `@clack/prompts`, and `picocolors` only, stays under 1 MB installed, and resolves everything through `https://boila.dev/registry.json` — no hardcoded repo URLs.
 
 Local dev against in-repo templates:
 
 ```bash
-npm --workspace boila run build
-npm --workspace boila run dev                       # interactive
-npm --workspace boila run dev next-shadcn --bare    # non-interactive
+npm --workspace @boila/cli run build
+npm --workspace @boila/cli run dev                       # interactive
+npm --workspace @boila/cli run dev next-shadcn --bare    # non-interactive
 ```
 
 The dev script wires `BOILA_REGISTRY` and `BOILA_TEMPLATES_DIR` so the CLI hits in-repo files without any network call.

@@ -3,10 +3,10 @@
 Scaffold curated frontend / full-stack boilerplates with one command.
 
 ```bash
-npx boila                  # interactive picker
-npx boila <slug>           # scaffold into ./<slug>
-npx boila <slug> <dir>     # scaffold into <dir>
-npx boila search <term>    # list matching entries
+npx @boila/cli                  # interactive picker
+npx @boila/cli <slug>           # scaffold into ./<slug>
+npx @boila/cli <slug> <dir>     # scaffold into <dir>
+npx @boila/cli search <term>    # list matching entries
 ```
 
 Browse the catalog at [boila.dev](https://boila.dev).
@@ -26,15 +26,15 @@ No hardcoded URLs, no telemetry, no analytics.
 
 ```bash
 # Pick interactively
-npx boila
+npx @boila/cli
 
 # Direct scaffold
-npx boila t3-saas-starter
-npx boila next-landing-bento my-launch
+npx @boila/cli t3-saas-starter
+npx @boila/cli next-landing-bento my-launch
 
 # Search the registry from the terminal
-npx boila search edge
-npx boila search "saas dashboard"
+npx @boila/cli search edge
+npx @boila/cli search "saas dashboard"
 ```
 
 ## Configuration
@@ -55,7 +55,7 @@ npx boila search "saas dashboard"
 
 ## Contributing
 
-`boila` is part of the [Boila monorepo](https://github.com/boila-dev/boila).
+`@boila/cli` is part of the [Boila monorepo](https://github.com/boila-dev/boila).
 To add a boilerplate to the registry, see the
 [contribution guide](https://boila.dev/contribute).
 

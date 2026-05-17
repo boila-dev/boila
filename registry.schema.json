@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://boila.dev/registry.schema.json",
   "title": "Boila boilerplate entry",
-  "description": "Frontmatter shape for a single boilerplate entry. Each .mdx file under apps/web/content/boilerplates/ must validate against this schema. The compiled registry.json is the public contract consumed by the npx boila CLI.",
+  "description": "Frontmatter shape for a single boilerplate entry. Each .mdx file under apps/web/content/boilerplates/ must validate against this schema. The compiled registry.json is the public contract consumed by the npx @boila/cli CLI.",
   "type": "object",
   "additionalProperties": false,
   "required": [

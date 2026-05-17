@@ -80,7 +80,7 @@ export function SiteFooter() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-6 text-xs text-muted-foreground">
           <span>© {new Date().getFullYear()} Boila. MIT licensed.</span>
           <span className="font-mono uppercase tracking-[0.08em]">
-            npx boila &lt;slug&gt;
+            npx @boila/cli &lt;slug&gt;
           </span>
         </div>
       </div>

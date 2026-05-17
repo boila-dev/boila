@@ -2,7 +2,7 @@
 
 ## Project: Boila
 
-Community-curated registry of boilerplates **and composable plugins**. Devs browse the catalog on a Next.js site, pick a base starter, optionally toggle add-on plugins (auth, payments, email, analytics…), and scaffold the whole thing via a single `npx boila` command. Two surfaces (web + CLI), one source of truth (MDX files in this repo).
+Community-curated registry of boilerplates **and composable plugins**. Devs browse the catalog on a Next.js site, pick a base starter, optionally toggle add-on plugins (auth, payments, email, analytics…), and scaffold the whole thing via a single `npx @boila/cli` command. Two surfaces (web + CLI), one source of truth (MDX files in this repo).
 
 ## North star
 
@@ -38,7 +38,7 @@ No backend service, no database, no auth (no Appwrite, no Better-auth, no Supaba
 │           ├── boilerplates/      # MDX entries, one per boilerplate
 │           └── plugins/           # MDX entries, one per plugin
 ├── packages/
-│   └── cli/                       # `boila` npm package
+│   └── cli/                       # `@boila/cli` npm package
 │       └── src/
 ├── templates/                     # actual source for every boilerplate + plugin
 │   ├── <boilerplate-slug>/        # one folder per base (Next, Vite, Astro…)
@@ -118,13 +118,13 @@ The MDX body powers the detail page. Frontmatter feeds the CLI picker and the fi
 ## CLI behavior
 
 ```
-npx boila                          → interactive picker (base then plugins)
-npx boila <slug>                   → scaffold a known boilerplate (still prompts for plugins)
-npx boila <slug> <dir>             → scaffold into a specific directory
-npx boila <slug> --with a,b,c      → non-interactive plugin selection
-npx boila <slug> --bare            → skip plugin prompt, base only
-npx boila search <term>            → filter boilerplates from the terminal
-npx boila plugins                  → list available plugins (and filter with --category)
+npx @boila/cli                          → interactive picker (base then plugins)
+npx @boila/cli <slug>                   → scaffold a known boilerplate (still prompts for plugins)
+npx @boila/cli <slug> <dir>             → scaffold into a specific directory
+npx @boila/cli <slug> --with a,b,c      → non-interactive plugin selection
+npx @boila/cli <slug> --bare            → skip plugin prompt, base only
+npx @boila/cli search <term>            → filter boilerplates from the terminal
+npx @boila/cli plugins                  → list available plugins (and filter with --category)
 ```
 
 Under the hood:

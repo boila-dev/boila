@@ -5,7 +5,7 @@ Next.js 15 (App Router) + Tailwind CSS v4 + shadcn/ui starter.
 Scaffolded with [boila](https://boila.dev):
 
 ```bash
-npx boila next-shadcn
+npx @boila/cli next-shadcn
 ```
 
 ## Getting started

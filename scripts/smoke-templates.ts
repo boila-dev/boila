@@ -66,7 +66,7 @@ if (MODE !== "typecheck" && MODE !== "build") {
 async function main() {
   if (!existsSync(CLI_PATH)) {
     console.error(
-      `CLI not built. Run \`npm --workspace boila run build\` first.\n  expected: ${CLI_PATH}`
+      `CLI not built. Run \`npm --workspace @boila/cli run build\` first.\n  expected: ${CLI_PATH}`
     )
     process.exit(1)
   }

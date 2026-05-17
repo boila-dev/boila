@@ -1,7 +1,10 @@
 {
-  "name": "boila",
+  "name": "@boila/cli",
   "version": "0.0.1",
   "description": "Scaffold any boilerplate from the Boila registry with one command.",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "type": "module",
   "bin": {

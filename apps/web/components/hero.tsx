@@ -39,7 +39,7 @@ export function Hero() {
         </div>
 
         <div className="flex flex-col gap-5 md:pt-10">
-          <InstallCommand command="npx boila t3-saas-starter" />
+          <InstallCommand command="npx @boila/cli t3-saas-starter" />
           <div className="rounded-2xl bg-brand-deep-green p-6 text-white">
             <div className="flex items-center justify-between font-mono text-xs tracking-[0.08em] text-white/60 uppercase">
               <span>Today’s pick</span>

@@ -10,7 +10,7 @@
 #   - Settings → Actions → General → Workflow permissions: Read and write
 #   - Settings → Actions → General → Allow GitHub Actions to create and
 #     approve pull requests
-#   - Secrets → NPM_TOKEN (npm granular token, write scope on `boila` only)
+#   - Secrets → NPM_TOKEN (npm granular token, write scope on `@boila/cli` only)
 #
 # The CLI is the only thing we publish to npm right now. The web app
 # deploys via Vercel on every main push (no GitHub Actions needed).
@@ -41,7 +41,7 @@ jobs:
         id: release
         with:
           release-type: node
-          package-name: boila
+          package-name: "@boila/cli"
           path: packages/cli
           changelog-path: CHANGELOG.md
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm ci --ignore-scripts
       - name: Build CLI
-        run: npm --workspace boila run build
+        run: npm --workspace @boila/cli run build
       - name: Publish
         working-directory: packages/cli
         run: npm publish --provenance --access public
