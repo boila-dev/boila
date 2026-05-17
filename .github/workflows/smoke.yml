@@ -12,12 +12,6 @@ name: Smoke (templates)
 
 on:
   pull_request:
-    paths:
-      - "templates/**"
-      - "apps/web/content/**"
-      - "packages/cli/**"
-      - "scripts/smoke-templates.ts"
-      - ".github/workflows/smoke.yml"
   schedule:
     # Every Monday 06:00 UTC — catches upstream breakage between releases.
     - cron: "0 6 * * 1"

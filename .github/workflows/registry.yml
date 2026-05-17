@@ -9,13 +9,6 @@ name: Registry
 
 on:
   pull_request:
-    paths:
-      - "apps/web/content/boilerplates/**"
-      - "registry.schema.json"
-      - "scripts/**"
-      - "packages/cli/**"
-      - "package.json"
-      - ".github/workflows/registry.yml"
   push:
     branches: [main]
 
