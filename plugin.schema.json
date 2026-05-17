@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boila.dev/plugin.schema.json",
+  "title": "Boila plugin entry",
+  "description": "Frontmatter shape for a single plugin entry. Each .mdx file under apps/web/content/plugins/ must validate against this schema. The compiled registry.json is the public contract consumed by the npx boila CLI.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "slug",
+    "name",
+    "description",
+    "category",
+    "source",
+    "authors",
+    "maintained",
+    "license",
+    "addedAt"
+  ],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "URL slug. Must match the filename (sans .mdx) and the URL path /plugins/<slug>.",
+      "minLength": 2,
+      "maxLength": 60
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "description": "Human display name (e.g. 'Stripe billing')."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 120,
+      "description": "One-line pitch. Used on listing cards and the detail page lead."
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "auth",
+        "payments",
+        "email",
+        "analytics",
+        "db",
+        "monitoring",
+        "observability",
+        "ui",
+        "misc"
+      ],
+      "description": "Closed enum used to group plugins in the /plugins index."
+    },
+    "compatibleStacks": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Stack slugs the plugin targets. Empty means stack-agnostic. Used to filter compatible boilerplates."
+    },
+    "requires": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Plugin slugs that must be present. The CLI will auto-select prerequisites."
+    },
+    "conflicts": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Plugin slugs that are mutually exclusive with this one. The CLI warns and refuses to scaffold both."
+    },
+    "env": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]*$"
+      },
+      "description": "Environment variable names this plugin needs. Consolidated into .env.example at scaffold time."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo", "subdir"],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://",
+          "description": "Git repository URL holding the plugin sources."
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1,
+          "default": "main",
+          "description": "Branch to clone. Defaults to main."
+        },
+        "subdir": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Subdirectory inside the repo. Contents are dropped into the scaffolded project as-is."
+        }
+      },
+      "description": "Where the plugin files live. The CLI uses giget to clone the subdir into the scaffolded project."
+    },
+    "postInstall": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional command to run after the plugin is applied (e.g. 'pnpm db:push')."
+    },
+    "authors": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9-]{1,39}$"
+      },
+      "description": "GitHub handles of the plugin maintainers."
+    },
+    "maintained": {
+      "type": "boolean",
+      "description": "true if the plugin source is actively maintained (commit within ~6 months)."
+    },
+    "license": {
+      "type": "string",
+      "enum": ["MIT", "Apache-2.0", "ISC", "BSD-2-Clause", "BSD-3-Clause"],
+      "description": "SPDX license identifier. Only permissive licenses are accepted."
+    },
+    "docs": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://",
+      "description": "Optional upstream documentation URL."
+    },
+    "addedAt": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO date (YYYY-MM-DD) the plugin was added to the registry."
+    }
+  }
+}
