@@ -1,0 +1,68 @@
+# release-please opens / updates a Release PR on every push to main.
+#
+# - Reads conventional commit messages (feat:, fix:, BREAKING CHANGE:) and
+#   builds a changelog + bumps version automatically.
+# - Merge the Release PR → release-please tags the version + creates a
+#   GitHub release. That triggers the publish step below, which builds and
+#   publishes the CLI to npm.
+#
+# Required setup (one-time, on GitHub):
+#   - Settings → Actions → General → Workflow permissions: Read and write
+#   - Settings → Actions → General → Allow GitHub Actions to create and
+#     approve pull requests
+#   - Secrets → NPM_TOKEN (npm granular token, write scope on `boila` only)
+#
+# The CLI is the only thing we publish to npm right now. The web app
+# deploys via Vercel on every main push (no GitHub Actions needed).
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # required for npm provenance
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false # never cancel a release mid-flight
+
+jobs:
+  release-please:
+    name: Open / update Release PR
+    runs-on: ubuntu-latest
+    outputs:
+      released: ${{ steps.release.outputs.releases_created }}
+      tag: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          release-type: node
+          package-name: boila
+          path: packages/cli
+          changelog-path: CHANGELOG.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: npm publish
+    runs-on: ubuntu-latest
+    needs: release-please
+    if: needs.release-please.outputs.released == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org"
+      - run: npm ci --ignore-scripts
+      - name: Build CLI
+        run: npm --workspace boila run build
+      - name: Publish
+        working-directory: packages/cli
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
