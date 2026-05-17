@@ -1,0 +1,75 @@
+{
+  "$schema": "https://boila.dev/registry.schema.json",
+  "version": 2,
+  "generatedAt": "2026-05-17T20:12:08.088Z",
+  "counts": {
+    "boilerplates": 1,
+    "plugins": 1
+  },
+  "boilerplates": [
+    {
+      "slug": "next-shadcn",
+      "name": "Next + shadcn",
+      "description": "Next 15 App Router, Tailwind CSS v4, shadcn/ui, dark mode, Geist fonts. Nothing else.",
+      "repo": "https://github.com/boila-dev/boila",
+      "branch": "main",
+      "subdir": "templates/next-shadcn",
+      "stack": [
+        "next",
+        "typescript",
+        "tailwind",
+        "shadcn"
+      ],
+      "useCases": [
+        "saas",
+        "landing",
+        "dashboard"
+      ],
+      "features": [
+        "dark-mode",
+        "sonner",
+        "fonts-geist"
+      ],
+      "compatiblePlugins": [
+        "better-auth"
+      ],
+      "authors": [
+        "boila-dev"
+      ],
+      "maintained": true,
+      "license": "MIT",
+      "addedAt": "2026-05-17",
+      "installCommand": "pnpm install"
+    }
+  ],
+  "plugins": [
+    {
+      "slug": "better-auth",
+      "name": "Better Auth (email + password)",
+      "description": "Drop-in email + password authentication with Better Auth, Drizzle, and SQLite.",
+      "category": "auth",
+      "compatibleStacks": [
+        "next"
+      ],
+      "env": [
+        "BETTER_AUTH_SECRET",
+        "BETTER_AUTH_URL",
+        "NEXT_PUBLIC_APP_URL",
+        "DATABASE_FILE"
+      ],
+      "source": {
+        "repo": "https://github.com/boila-dev/boila",
+        "branch": "main",
+        "subdir": "templates/_plugins/better-auth"
+      },
+      "postInstall": "pnpm add better-auth better-sqlite3 drizzle-orm dotenv && pnpm add -D drizzle-kit @types/better-sqlite3 && pnpm drizzle-kit push",
+      "authors": [
+        "boila-dev"
+      ],
+      "maintained": true,
+      "license": "MIT",
+      "docs": "https://better-auth.com/docs",
+      "addedAt": "2026-05-17"
+    }
+  ]
+}
