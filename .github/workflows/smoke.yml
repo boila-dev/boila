@@ -1,0 +1,62 @@
+# Catches upstream rot in the templates.
+#
+# - PR mode (typecheck): runs on every PR that touches templates/. Fast
+#   smoke test — installs deps and runs tsc --noEmit on every combo.
+# - Cron mode (build): runs Monday 06:00 UTC and on manual dispatch.
+#   Catches breakage even when no one is pushing (e.g. Next ships a major
+#   that breaks our templates). Runs the full `next build` per combo.
+#
+# Combo = one boilerplate + zero or all its compatible plugins. With N
+# boilerplates the matrix is 2N runs (bare + all-plugins).
+name: Smoke (templates)
+
+on:
+  pull_request:
+    paths:
+      - "templates/**"
+      - "apps/web/content/**"
+      - "packages/cli/**"
+      - "scripts/smoke-templates.ts"
+      - ".github/workflows/smoke.yml"
+  schedule:
+    # Every Monday 06:00 UTC — catches upstream breakage between releases.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "typecheck or build"
+        required: false
+        default: "build"
+
+concurrency:
+  group: smoke-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Scaffold + ${{ github.event_name == 'pull_request' && 'typecheck' || (github.event.inputs.mode || 'build') }}
+    runs-on: ubuntu-latest
+    # Build can be slow (10+ minutes for several combos). Keep generous.
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install root deps
+        run: npm ci --ignore-scripts
+      - name: Build CLI
+        run: npm --workspace boila run build
+      - name: Build registry.json
+        run: npm run registry:build
+      - name: Smoke test (${{ github.event_name == 'pull_request' && 'typecheck' || (github.event.inputs.mode || 'build') }})
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            npm run smoke
+          else
+            MODE="${{ github.event.inputs.mode || 'build' }}"
+            npm run smoke -- --mode "$MODE"
+          fi

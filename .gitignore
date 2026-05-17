@@ -41,3 +41,13 @@ npm-debug.log*
 
 # Visual brainstorming
 .superpowers/
+
+# Playwright MCP session logs
+.playwright-mcp/
+
+# Claude Code session data
+.claude/
+
+# CLI dev artifacts (npm pack, local scaffold tests)
+packages/cli/*.tgz
+packages/cli/next-shadcn/
