@@ -34,7 +34,7 @@ concurrency:
 
 jobs:
   smoke:
-    name: Scaffold + ${{ github.event_name == 'pull_request' && 'typecheck' || (github.event.inputs.mode || 'build') }}
+    name: smoke
     runs-on: ubuntu-latest
     # Build can be slow (10+ minutes for several combos). Keep generous.
     timeout-minutes: 40
