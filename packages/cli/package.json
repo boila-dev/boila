@@ -1,6 +1,6 @@
 {
   "name": "@boila/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scaffold any boilerplate from the Boila registry with one command.",
   "keywords": [
     "boilerplate",
