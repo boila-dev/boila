@@ -32,7 +32,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/postcss": "^4.3.3",
     "@turbo/gen": "^2.8.1",
     "@types/node": "^25.1.0",
     "@types/react": "^19.2.15",
@@ -40,7 +40,7 @@
     "@workspace/eslint-config": "*",
     "@workspace/typescript-config": "*",
     "eslint": "^9.39.4",
-    "tailwindcss": "^4.1.18",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3"
   },
   "exports": {
