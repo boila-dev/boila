@@ -73,13 +73,13 @@
       "groupSlug": "react"
     },
     {
-      "matchPackagePrefixes": ["@radix-ui/"],
       "matchPackageNames": [
         "class-variance-authority",
         "clsx",
         "tailwind-merge",
         "lucide-react",
-        "tw-animate-css"
+        "tw-animate-css",
+        "@radix-ui/{/,}**"
       ],
       "groupName": "shadcn / Radix",
       "groupSlug": "shadcn"
@@ -90,11 +90,11 @@
       "groupSlug": "tailwindcss"
     },
     {
-      "matchPackagePrefixes": ["drizzle-"],
       "matchPackageNames": [
         "better-auth",
         "better-sqlite3",
-        "@types/better-sqlite3"
+        "@types/better-sqlite3",
+        "drizzle-{/,}**"
       ],
       "groupName": "better-auth + drizzle",
       "groupSlug": "better-auth"
